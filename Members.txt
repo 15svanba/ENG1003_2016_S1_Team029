@@ -4,9 +4,3 @@ Sam van Baalen
 Nigel Jayasuriya
 Anil Deo
 Ollie Haigh-Childs
-<<<<<<< HEAD
-
-aSDFGHJKL;'yhvbnm 
-=======
-ghghghghghghghghghghghghghghghghghghghghghghgh
->>>>>>> origin/master
