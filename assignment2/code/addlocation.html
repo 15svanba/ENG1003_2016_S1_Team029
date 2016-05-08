@@ -13,7 +13,7 @@
         <link rel="apple-touch-icon-precomposed" href="images/icon.png" />
            <style type="text/css">
       html, body { height: 100%; margin: 0; padding: 0; }
-      #map { height: 100%; }
+      #map { height: 500px; width: 400px; }
     </style>
     </head>
     
@@ -40,20 +40,18 @@
                 <label class="mdl-textfield__label" for="nicknameInput">Enter a nickname..</label>
                 </div>
                 <div id="map"></div>
-              </div>
-                  <!-- Raised button -->
-                <button class="mdl-button mdl-js-button mdl-button--raised">
-                Save Location
-                </button>
+              </div>      
             </div>
         </div>
+        <button class="mdl-button mdl-js-button mdl-button--raised" onclick="findit()" id="submit">
+                Save Location
+                </button> 
     </main>
+    
 
         <!--   JavaScript files:   -->
         <script src="js/locationWeatherCache.js"></script>
         <script src="js/addlocationPage.js"></script>
-         <script async defer
-  src="https://maps.googleapis.com/maps/api/js?v=3&amp;key=&amp;callback=initMap">
-    </script>
-    </body>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?v=3&amp;key=&amp;callback=initMap"> </script>
+</body>
 </html>
