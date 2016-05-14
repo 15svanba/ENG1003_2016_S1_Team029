@@ -1,9 +1,10 @@
 // Code for the Add Location page.
+//Code for Initialising Map
 var map;
 function initMap()
 {
         map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 17,
+        zoom: 15,
         center: {lat: -34.397, lng: 150.644}
         });
         var geocoder = new google.maps.Geocoder();
@@ -12,7 +13,7 @@ function initMap()
           geocodeAddress(geocoder, map);
         });
 }
-
+//The Geocoding Function
 function geocodeAddress(geocoder, resultsMap) {
         var address = document.getElementById('addressInput').value;
         geocoder.geocode({'address': address}, function(results, status) {
