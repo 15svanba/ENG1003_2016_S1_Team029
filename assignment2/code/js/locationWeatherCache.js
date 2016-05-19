@@ -78,7 +78,10 @@ function LocationWeatherCache()
     // Note that the callbacks attribute is only meaningful while there 
     // are active web service requests and so doesn't need to be saved.
     //
-    this.toJSON = function() {
+    this.toJSON = function()
+    {
+        var locationWeatherCachePDO = locations
+        return locationWeatherCachePDO
     };
 
     // Given a public-data-only version of the class (such as from
