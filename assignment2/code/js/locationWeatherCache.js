@@ -124,6 +124,14 @@ function LocationWeatherCache()
     //
     function indexForLocation(latitude, longitude)
     {
+        for (item in locations)
+        {
+            if (item.latitude === latitude && item.longitude === longitude)
+            {
+                return locations.indexOf(item)
+            }
+        }
+        return -1
     }
 }
 
