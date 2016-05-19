@@ -9,7 +9,7 @@ function initMap()
         });
         var geocoder = new google.maps.Geocoder();
 
-        document.getElementById('addressInput').addEventListener('input', function() {
+        document.getElementById('addressInput').addEventListener('blur', function() {
           geocodeAddress(geocoder, map);
         });
 }
@@ -29,5 +29,6 @@ function geocodeAddress(geocoder, resultsMap) {
           {
             alert('Geocode was not successful for the following reason: ' + status);
           }
+            //alert(JSON.stringify(results[0].geometry.location));
         });
       }
