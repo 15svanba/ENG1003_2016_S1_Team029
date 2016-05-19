@@ -139,7 +139,12 @@ function LocationWeatherCache()
 //
 function loadLocations()
 {
-    
+    WeatherInstance = new LocationWeatherCache();
+    if (localStorage.getItem(APP_PREFIX) != null)
+    {
+        var LocationWeatherPDO = localStorage.getItem(APP_PREFIX)
+        WeatherInstance.initialiseFromPDO(LocationWeatherPDO)
+    }
 }
 
 // Save the singleton locationWeatherCache to Local Storage.
