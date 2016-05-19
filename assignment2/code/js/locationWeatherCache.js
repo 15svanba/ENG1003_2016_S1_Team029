@@ -88,7 +88,9 @@ function LocationWeatherCache()
     // local storage), this method will initialise the current
     // instance to match that version.
     //
-    this.initialiseFromPDO = function(locationWeatherCachePDO) {
+    this.initialiseFromPDO = function(locationWeatherCachePDO) 
+    {
+        locations = JSON.parse(locationWeatherCachePDO)
     };
 
     // Request weather for the location at the given index for the
