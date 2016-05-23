@@ -103,7 +103,31 @@ function LocationWeatherCache()
     // will be the index of the location and the second will be the 
     // weather object for that location.
     // 
-    this.getWeatherAtIndexForDate = function(index, date, callback) {
+    this.getWeatherAtIndexForDate = function(index, date, callback) 
+    {
+                if (WeatherInstance.length != 0)
+            {
+                var currentLocation = WeatherInstance.locationAtIndex(index)
+                locationLatLongDate = currentLocation.latitude + "," + currentLocation.longitude + "," + date
+                
+                if (currentLocation.forecasts.hasOwnProperty[locationLatLongDate])
+                    {
+                        callback(index, currentLocation.forecasts[locationLatLongDate])
+                    }
+                else
+                    {
+                        callbacks[locationLatLongDate] = callback;
+                        var callAPI = "https://api.forecast.io/forecast/2374cd44581a471c718f286ff3ca5e68/" + locationLatLongDate + "/?exclude=hourly,minutely,flags&units=si&callback=" + callback;
+                        
+                        var script = document.createElement('script');
+                        script.src = callAPI;
+                        document.body.appendChild(script)
+                    }
+            }
+        else
+            {
+                console.log("No locations found!")
+            }
     };
     
     // This is a callback function passed to forecast.io API calls.
@@ -112,7 +136,9 @@ function LocationWeatherCache()
     // This should invoke the recorded callback function for that
     // weather request.
     //
-    this.weatherResponse = function(response) {
+    this.weatherResponse = function(response) 
+    {
+        
     };
 
     // Private methods:
