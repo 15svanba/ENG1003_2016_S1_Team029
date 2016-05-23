@@ -23,6 +23,7 @@ function geocodeAddress(geocoder, resultsMap) {
               map: resultsMap,
               position: results[0].geometry.location
             });
+            postionDetails=results[0]// sets a global variable that is equal to the first position in the results array
           } 
             else
           {
@@ -30,29 +31,24 @@ function geocodeAddress(geocoder, resultsMap) {
           }
         });
       }
-function currentLocation(){
-    var infoWindow = new google.maps.InfoWindow({map: map});
-    if (navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
+function saveLocation()
+{
+    // Creates an object using the LocationWeatherCache Class
+    var locationCacheInstance = new LocationWeatherCache();
+    var nicknameInputRef = document.getElementById("nicknameInput");// Gets Value of the Nickname Text Field
+    var nickname = ""// nickname variable that will be used in the add location method
+    var latitiude = postionDetails.geometry.location.lat()//Latitude of the marker placed
+    var longitude = postionDetails.geometry.location.lng()//Longitude of themarker placed
+    if (nicknameInputRef.value === "")
+        {
+            nickname = postionDetails.formatted_address// Makes the nickname equal to the formmated address of the input
+        }
+    else
+        {
+            nickname = nicknameInputRef.value
+        }
+    locationCacheInstance.addLocation(latitiude,longitude,nickname);
 
-      infoWindow.setPosition(pos);
-      infoWindow.setContent('Location found.');
-      map.setCenter(pos);
-    }, function() {
-      handleLocationError(true, infoWindow, map.getCenter());
-    });
-  } else {
-    // Browser doesn't support Geolocation
-    handleLocationError(false, infoWindow, map.getCenter());
-  }
 }
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(browserHasGeolocation ?
-                        'Error: The Geolocation service failed.' :
-                        'Error: Your browser doesn\'t support geolocation.');
-}
+
+
