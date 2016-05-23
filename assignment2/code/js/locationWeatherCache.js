@@ -105,7 +105,7 @@ function LocationWeatherCache()
     // 
     this.getWeatherAtIndexForDate = function(index, date, callback) 
     {
-                if (WeatherInstance.length != 0)
+        if (WeatherInstance.length != 0)
             {
                 var currentLocation = WeatherInstance.locationAtIndex(index)
                 locationLatLongDate = currentLocation.latitude + "," + currentLocation.longitude + "," + date
@@ -138,7 +138,12 @@ function LocationWeatherCache()
     //
     this.weatherResponse = function(response) 
     {
+        var index = indexForLocation(response.latitude, response.longitude)
+        WeatherInstance.locationAtIndex(index).forecasts[locationLatLongDate] = response
         
+        currentCallback = callbacks][locationLatLongDate]
+        currentCallback(index, response)
+        saveLocations()
     };
 
     // Private methods:
