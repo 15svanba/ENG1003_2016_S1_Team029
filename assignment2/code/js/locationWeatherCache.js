@@ -38,17 +38,12 @@ function LocationWeatherCache()
     // Returns the number of locations stored in the cache.
     //
     this.length = function() {
-        return locations.length
     };
     
     // Returns the location object for a given index.
     // Indexes begin at zero.
     //
     this.locationAtIndex = function(index) {
-        for (var i = 0; i < locations.length; i++)
-            {
-                return locations[i]
-            }
     };
 
     // Given a latitude, longitude and nickname, this method saves a 
