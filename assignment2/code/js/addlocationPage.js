@@ -37,17 +37,20 @@ function saveLocation()
     var locationCacheInstance = new LocationWeatherCache();
     var nicknameInputRef = document.getElementById("nicknameInput");// Gets Value of the Nickname Text Field
     var nickname = ""// nickname variable that will be used in the add location method
-    var latitiude = postionDetails.geometry.location.lat()//Latitude of the marker placed
-    var longitude = postionDetails.geometry.location.lng()//Longitude of themarker placed
+    var latitiude = postionDetails.geometry.location.lat();//Latitude of the marker placed
+    var longitude = postionDetails.geometry.location.lng();//Longitude of themarker placed
     if (nicknameInputRef.value === "")
         {
-            nickname = postionDetails.formatted_address// Makes the nickname equal to the formmated address of the input
+            nickname = postionDetails.formatted_address;// Makes the nickname equal to the formmated address of the input if there is no nickname input
         }
     else
         {
-            nickname = nicknameInputRef.value
+            nickname = nicknameInputRef.value;// Makes nickname equal to the nickname input
         }
     locationCacheInstance.addLocation(latitiude,longitude,nickname);
+    console.log(latitiude);
+    console.log(longitude);
+    console.log(nickname);
 
 }
 
