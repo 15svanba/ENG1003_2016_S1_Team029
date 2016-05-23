@@ -1,5 +1,4 @@
 // Code for the Add Location page.
-//Code for Initialising Map
 var map;
 function initMap()
 {
@@ -8,7 +7,6 @@ function initMap()
         center: {lat: -34.397, lng: 150.644}
         });
         var geocoder = new google.maps.Geocoder();
-
         document.getElementById('addressInput').addEventListener('blur', function() {
           geocodeAddress(geocoder, map);
         });
@@ -24,11 +22,33 @@ function geocodeAddress(geocoder, resultsMap) {
               map: resultsMap,
               position: results[0].geometry.location
             });
+            postionDetails=results[0]// sets a global variable that is equal to the first position in the results array
           } 
             else
           {
             alert('Geocode was not successful for the following reason: ' + status);
           }
-            //alert(JSON.stringify(results[0].geometry.location));
         });
       }
+function saveLocation()
+{
+    // Creates an object using the LocationWeatherCache Class
+    var locationCacheInstance = new LocationWeatherCache();
+    var nicknameInputRef = document.getElementById("nicknameInput");// Gets Value of the Nickname Text Field
+    var nickname = ""// nickname variable that will be used in the add location method
+    var latitiude = postionDetails.geometry.location.lat();//Latitude of the marker placed
+    var longitude = postionDetails.geometry.location.lng();//Longitude of themarker placed
+    if (nicknameInputRef.value === "")
+        {
+            nickname = postionDetails.formatted_address;// Makes the nickname equal to the formmated address of the input if there is no nickname input
+        }
+    else
+        {
+            nickname = nicknameInputRef.value;// Makes nickname equal to the nickname input
+        }
+    locationCacheInstance.addLocation(latitiude,longitude,nickname);
+    console.log(latitiude);
+    console.log(longitude);
+    console.log(nickname);
+
+}
