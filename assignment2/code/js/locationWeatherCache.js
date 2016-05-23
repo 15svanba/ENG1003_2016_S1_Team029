@@ -63,7 +63,10 @@ function LocationWeatherCache()
             nickname : nickname,
             forecast: {}
         }
-        locations.push(newLocation)
+        if (newLocation !== null)
+        {
+        locations.push(newLocation);
+        };
         return locations.length-1
     };
 
