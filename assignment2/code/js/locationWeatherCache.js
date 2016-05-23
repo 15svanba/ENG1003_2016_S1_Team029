@@ -1,6 +1,7 @@
 
 // Returns a date in the format "YYYY-MM-DD".
-Date.prototype.simpleDateString = function() {
+Date.prototype.simpleDateString = function() 
+{
     function pad(value)
     {
         return ("0" + value).slice(-2);
@@ -16,7 +17,8 @@ Date.prototype.simpleDateString = function() {
 // Date format required by forecast.io API.
 // We always represent a date with a time of midday,
 // so our choice of day isn't susceptible to time zone errors.
-Date.prototype.forecastDateString = function() {
+Date.prototype.forecastDateString = function() 
+{
     return this.simpleDateString() + "T12:00:00";
 }
 
@@ -65,7 +67,7 @@ function LocationWeatherCache()
         }
         if (newLocation !== null)
         {
-        locations.push(newLocation);
+            locations.push(newLocation);
         };
         return locations.length-1
     };
