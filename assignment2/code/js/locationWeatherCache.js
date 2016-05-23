@@ -37,18 +37,18 @@ function LocationWeatherCache()
     
     // Returns the number of locations stored in the cache.
     //
-    this.length = function() {
-        return locations.length
+    this.length = function() 
+    {
+        length = location.length
+        return length
     };
     
     // Returns the location object for a given index.
     // Indexes begin at zero.
     //
-    this.locationAtIndex = function(index) {
-        for (var i = 0; i < locations.length; i++)
-            {
-                return locations[i]
-            }
+    this.locationAtIndex = function(index) 
+    {
+        return location[index]
     };
 
     // Given a latitude, longitude and nickname, this method saves a 
@@ -57,26 +57,40 @@ function LocationWeatherCache()
     //
     this.addLocation = function(latitude, longitude, nickname)
     {
-    }
+        var newLocation = {
+            latitude : latitude,
+            longitude : longitude,
+            nickname : nickname,
+            forecast: {}
+        }
+        location.push(newLocation)
+        return location.length-1
+    };
 
     // Removes the saved location at the given index.
     // 
     this.removeLocationAtIndex = function(index)
     {
+        location.splice(index, 1)
     }
 
     // This method is used by JSON.stringify() to serialise this class.
     // Note that the callbacks attribute is only meaningful while there 
     // are active web service requests and so doesn't need to be saved.
     //
-    this.toJSON = function() {
+    this.toJSON = function()
+    {
+        var locationWeatherCachePDO = locations
+        return locationWeatherCachePDO
     };
 
     // Given a public-data-only version of the class (such as from
     // local storage), this method will initialise the current
     // instance to match that version.
     //
-    this.initialiseFromPDO = function(locationWeatherCachePDO) {
+    this.initialiseFromPDO = function(locationWeatherCachePDO) 
+    {
+        locations = JSON.parse(locationWeatherCachePDO)
     };
 
     // Request weather for the location at the given index for the
@@ -89,7 +103,31 @@ function LocationWeatherCache()
     // will be the index of the location and the second will be the 
     // weather object for that location.
     // 
-    this.getWeatherAtIndexForDate = function(index, date, callback) {
+    this.getWeatherAtIndexForDate = function(index, date, callback) 
+    {
+        if (WeatherInstance.length != 0)
+            {
+                var currentLocation = WeatherInstance.locationAtIndex(index)
+                locationLatLongDate = currentLocation.latitude + "," + currentLocation.longitude + "," + date
+                
+                if (currentLocation.forecasts.hasOwnProperty[locationLatLongDate])
+                    {
+                        callback(index, currentLocation.forecasts[locationLatLongDate])
+                    }
+                else
+                    {
+                        callbacks[locationLatLongDate] = callback;
+                        var callAPI = "https://api.forecast.io/forecast/2374cd44581a471c718f286ff3ca5e68/" + locationLatLongDate + "/?exclude=hourly,minutely,flags&units=si&callback=" + callback;
+                        
+                        var script = document.createElement('script');
+                        script.src = callAPI;
+                        document.body.appendChild(script)
+                    }
+            }
+        else
+            {
+                console.log("No locations found!")
+            }
     };
     
     // This is a callback function passed to forecast.io API calls.
@@ -98,7 +136,14 @@ function LocationWeatherCache()
     // This should invoke the recorded callback function for that
     // weather request.
     //
-    this.weatherResponse = function(response) {
+    this.weatherResponse = function(response) 
+    {
+        var index = indexForLocation(response.latitude, response.longitude)
+        WeatherInstance.locationAtIndex(index).forecasts[locationLatLongDate] = response
+        
+        currentCallback = callbacks[locationLatLongDate]
+        currentCallback(index, response)
+        saveLocations()
     };
 
     // Private methods:
@@ -110,6 +155,14 @@ function LocationWeatherCache()
     //
     function indexForLocation(latitude, longitude)
     {
+        for (item in locations)
+        {
+            if (item.latitude === latitude && item.longitude === longitude)
+            {
+                return locations.indexOf(item)
+            }
+        }
+        return -1
     }
 }
 
@@ -117,11 +170,18 @@ function LocationWeatherCache()
 //
 function loadLocations()
 {
+    WeatherInstance = new LocationWeatherCache();
+    if (localStorage.getItem(APP_PREFIX) != null)
+    {
+        var LocationWeatherPDO = localStorage.getItem(APP_PREFIX)
+        WeatherInstance.initialiseFromPDO(LocationWeatherPDO)
+    }
 }
 
 // Save the singleton locationWeatherCache to Local Storage.
 //
 function saveLocations()
 {
+    var locationWeatherCachePDO = JSON.stringify(WeatherInstance)
+    localStorage.setItem(APP_PREFIX, locationWeatherPDO)
 }
-
