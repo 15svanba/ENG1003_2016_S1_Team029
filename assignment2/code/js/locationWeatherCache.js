@@ -39,7 +39,7 @@ function LocationWeatherCache()
     //
     this.length = function() 
     {
-        length = location.length
+        length = locations.length
         return length
     };
     
@@ -58,20 +58,20 @@ function LocationWeatherCache()
     this.addLocation = function(latitude, longitude, nickname)
     {
         var newLocation = {
-            latitude = latitude,
-            longitude = longitude,
-            nickname = nickname,
+            latitude : latitude,
+            longitude : longitude,
+            nickname : nickname,
             forecast: {}
         }
-        location.push(newLocation)
-        return location.length-1
+        locations.push(newLocation)
+        return locations.length-1
     };
 
     // Removes the saved location at the given index.
     // 
     this.removeLocationAtIndex = function(index)
     {
-        location.splice(index, 1)
+        locations.splice(index, 1)
     }
 
     // This method is used by JSON.stringify() to serialise this class.
