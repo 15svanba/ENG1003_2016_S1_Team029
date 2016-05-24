@@ -24,7 +24,7 @@ Date.prototype.forecastDateString = function()
 
 
 // Code for LocationWeatherCache class and other shared code.
-
+var WeatherInstance= new LocationWeatherCache();//Creates an Instance of the LocationWeatheCache Class
 // Prefix to use for Local Storage.  You may change this.
 var APP_PREFIX = "weatherApp";
 
