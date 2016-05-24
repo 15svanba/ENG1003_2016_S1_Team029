@@ -32,8 +32,7 @@ function geocodeAddress(geocoder, resultsMap) {
       }
 function saveLocation()
 {
-    // Creates an object using the LocationWeatherCache Class
-    var locationCacheInstance = new LocationWeatherCache();
+    
     var nicknameInputRef = document.getElementById("nicknameInput");// Gets Value of the Nickname Text Field
     var nickname = ""// nickname variable that will be used in the add location method
     var latitiude = postionDetails.geometry.location.lat();//Latitude of the marker placed
@@ -46,9 +45,10 @@ function saveLocation()
         {
             nickname = nicknameInputRef.value;// Makes nickname equal to the nickname input
         }
-    locationCacheInstance.addLocation(latitiude,longitude,nickname);
+    WeatherInstance.addLocation(latitiude,longitude,nickname);// Runs add location method in the Cache class
     console.log(latitiude);
     console.log(longitude);
     console.log(nickname);
+    saveLocations();//runs the saveLocations function inside the LocationWeatheCache.js
 
 }
