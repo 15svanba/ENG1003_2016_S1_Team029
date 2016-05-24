@@ -69,6 +69,7 @@ function LocationWeatherCache()
         {
             locations.push(newLocation);
         };
+        location.href="index.html"//returns user to the locations list 
         return locations.length-1
     };
 
