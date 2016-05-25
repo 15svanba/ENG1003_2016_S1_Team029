@@ -29,5 +29,5 @@ for (i=0;i <= LocationWeatherCache.length();i++){
                   <span id="weather'+ i + '" class="mdl-list__item-sub-title">Weather summary</span>\
                 </span>\
               </li>'
-    Document.getElementById('locationList') += addList
+    Document.getElementById('locationList').appendChild(addList)
 }

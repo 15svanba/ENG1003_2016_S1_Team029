@@ -24,7 +24,6 @@ Date.prototype.forecastDateString = function()
 
 
 // Code for LocationWeatherCache class and other shared code.
-var WeatherInstance= new LocationWeatherCache();//Creates an Instance of the LocationWeatheCache Class
 // Prefix to use for Local Storage.  You may change this.
 var APP_PREFIX = "weatherApp";
 
@@ -69,7 +68,6 @@ function LocationWeatherCache()
         {
             locations.push(newLocation);
         };
-        location.href="index.html"//returns user to the locations list 
         return locations.length-1
     };
 
@@ -147,7 +145,7 @@ function LocationWeatherCache()
         var index = indexForLocation(response.latitude, response.longitude)
         WeatherInstance.locationAtIndex(index).forecasts[locationLatLongDate] = response
         
-        currentCallback = callbacks][locationLatLongDate]
+        currentCallback = callbacks[locationLatLongDate]
         currentCallback(index, response)
         saveLocations()
     };
@@ -189,6 +187,7 @@ function loadLocations()
 function saveLocations()
 {
     var locationWeatherCachePDO = JSON.stringify(WeatherInstance)
-    localStorage.setItem(APP_PREFIX, locationWeatherPDO)
+    localStorage.setItem(APP_PREFIX, locationWeatherCachePDO)
 }
 
+loadLocations();

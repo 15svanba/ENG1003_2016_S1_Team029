@@ -39,7 +39,7 @@ function saveLocation()
     var longitude = postionDetails.geometry.location.lng();//Longitude of themarker placed
     if (nicknameInputRef.value === "")
         {
-            nickname = postionDetails.formatted_address;// Makes the nickname equal to the formmated address of the input if there is no nickname input
+            nickname = postionDetails.address_components[0].long_name;// Makes the nickname equal to the formmated address of the input if there is no nickname input
         }
     else
         {
@@ -50,5 +50,7 @@ function saveLocation()
     console.log(longitude);
     console.log(nickname);
     saveLocations();//runs the saveLocations function inside the LocationWeatheCache.js
+    location.href="index.html"//returns user to the locations list 
+
 
 }
